@@ -2,477 +2,1198 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Game Belajar TK B</title>
 
 <style>
+
 *{
-box-sizing:border-box;
 margin:0;
 padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
 }
 
 body{
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#87CEEB,#E0FFFF);
+background:linear-gradient(135deg,#7dd3fc,#d8b4fe);
 min-height:100vh;
-padding:15px;
+padding:12px;
+overflow-x:hidden;
+}
+
+.screen{
+display:none;
+}
+
+.screen.active{
+display:block;
 }
 
 .container{
-max-width:900px;
+max-width:1000px;
 margin:auto;
+}
+
+.header{
 background:white;
 border-radius:20px;
-padding:20px;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
-}
-
-h1{
-text-align:center;
-color:#ff6600;
+padding:15px;
 margin-bottom:15px;
+box-shadow:0 4px 12px rgba(0,0,0,.1);
+text-align:center;
 }
 
-.info{
+.header h1{
+color:#ff6b00;
+font-size:28px;
+}
+
+.stats{
 display:flex;
-justify-content:space-between;
 gap:10px;
 flex-wrap:wrap;
-margin-bottom:15px;
+justify-content:center;
+margin-top:10px;
+}
+
+.stat-card{
+background:#f3f4f6;
+padding:10px 15px;
+border-radius:12px;
+font-weight:bold;
 }
 
 .card{
-background:#f5f5f5;
-padding:10px 20px;
-border-radius:10px;
-font-weight:bold;
-}
-
-.progress-wrap{
-background:#ddd;
-height:20px;
+background:white;
 border-radius:20px;
-overflow:hidden;
-margin-bottom:20px;
+padding:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+margin-bottom:15px;
 }
 
-.progress{
-background:#4caf50;
-height:100%;
-width:0%;
-}
-
-.level{
-font-size:22px;
+.section-title{
+font-size:24px;
 font-weight:bold;
-color:#2196f3;
+margin-bottom:15px;
 text-align:center;
+color:#2563eb;
+}
+
+.category-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.category{
+background:white;
+border-radius:20px;
+padding:25px;
+text-align:center;
+cursor:pointer;
+transition:.2s;
+box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
+
+.category:hover{
+transform:scale(1.03);
+}
+
+.category-emoji{
+font-size:60px;
 margin-bottom:10px;
 }
 
-.question{
-font-size:28px;
-text-align:center;
-margin:20px 0;
+.category-title{
+font-size:20px;
 font-weight:bold;
 }
 
-.emoji{
-font-size:80px;
-text-align:center;
-margin:10px;
-}
-
-.options{
+.level-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:12px;
 }
 
-.option{
-padding:18px;
+.level-btn{
 border:none;
-border-radius:12px;
-background:#2196f3;
-color:white;
-font-size:18px;
-cursor:pointer;
-}
-
-.option:hover{
-background:#1976d2;
-}
-
-input.answer{
-width:100%;
+border-radius:16px;
 padding:15px;
-font-size:24px;
-text-align:center;
-border-radius:10px;
-border:2px solid #ccc;
+cursor:pointer;
+font-size:18px;
+font-weight:bold;
+color:white;
+background:#3b82f6;
+min-height:70px;
+}
+
+.level-lock{
+background:#9ca3af;
+}
+
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+gap:10px;
+flex-wrap:wrap;
 }
 
 .btn{
-margin-top:15px;
-width:100%;
-padding:15px;
 border:none;
-border-radius:12px;
-font-size:20px;
-cursor:pointer;
-background:#ff9800;
+background:#2563eb;
 color:white;
-}
-
-.feedback{
-margin-top:15px;
-text-align:center;
-font-size:24px;
+padding:12px 18px;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
 font-weight:bold;
 }
 
-.correct{
+.progress-wrap{
+height:20px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-bottom:20px;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#22c55e;
+}
+
+.question{
+text-align:center;
+font-size:28px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.emoji{
+font-size:90px;
+text-align:center;
+margin-bottom:15px;
+}
+
+.options{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:10px;
+}
+
+.option-btn{
+border:none;
+background:#0ea5e9;
+color:white;
+font-size:20px;
+padding:18px;
+border-radius:16px;
+cursor:pointer;
+min-height:70px;
+}
+
+.option-btn:hover{
+background:#0284c7;
+}
+
+.answer-input{
+width:100%;
+padding:15px;
+font-size:24px;
+text-align:center;
+border-radius:12px;
+border:2px solid #ccc;
+}
+
+.feedback{
+text-align:center;
+font-size:24px;
+font-weight:bold;
+margin-top:15px;
+}
+
+.success{
 color:green;
 }
 
-.wrong{
-color:#f44336;
+.fail{
+color:#ef4444;
 }
 
 .hidden{
 display:none;
 }
 
+.medal{
+font-size:90px;
+text-align:center;
+margin-bottom:20px;
+}
+
 @media(max-width:600px){
+
+.header h1{
+font-size:22px;
+}
 
 .question{
 font-size:22px;
 }
 
-.option{
-font-size:16px;
-min-height:60px;
+.emoji{
+font-size:70px;
+}
+
+.option-btn{
+font-size:18px;
+}
+
+.level-btn{
+width:100%;
 }
 
 }
+
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
+<div class="header">
+
 <h1>🎓 Game Belajar TK B 🌈</h1>
 
-<div class="info">
-<div class="card">⭐ <span id="stars">0</span></div>
-<div class="card">Soal <span id="current">1</span>/300</div>
-<div class="card">🏆 <span id="score">0</span></div>
+<div class="stats">
+<div class="stat-card">
+⭐ Bintang: <span id="starCount">0</span>
+</div>
+
+<div class="stat-card">
+🏆 Skor: <span id="scoreCount">0</span>
+</div>
+
+<div class="stat-card">
+✅ Level Selesai: <span id="completedCount">0</span>
+</div>
+</div>
+
+</div>
+
+<!-- MENU -->
+
+<div id="menuScreen" class="screen active">
+
+<div class="section-title">
+Pilih Kategori
+</div>
+
+<div class="category-grid">
+
+<div class="category" onclick="openCategory('benda')">
+<div class="category-emoji">🍎</div>
+<div class="category-title">Mengenal Benda</div>
+</div>
+
+<div class="category" onclick="openCategory('hitung')">
+<div class="category-emoji">🔢</div>
+<div class="category-title">Berhitung</div>
+</div>
+
+<div class="category" onclick="openCategory('warna')">
+<div class="category-emoji">🎨</div>
+<div class="category-title">Warna & Bentuk</div>
+</div>
+
+<div class="category" onclick="openCategory('profesi')">
+<div class="category-emoji">👨‍🏫</div>
+<div class="category-title">Profesi</div>
+</div>
+
+<div class="category" onclick="openCategory('pola')">
+<div class="category-emoji">🔄</div>
+<div class="category-title">Pola & Urutan</div>
+</div>
+
+<div class="category" onclick="openCategory('campuran')">
+<div class="category-emoji">🎯</div>
+<div class="category-title">Kuis Campuran</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- LEVEL -->
+
+<div id="levelScreen" class="screen">
+
+<div class="top-bar">
+<button class="btn" onclick="showMenu()">
+⬅ Kembali
+</button>
+
+<div id="currentCategoryTitle"></div>
+</div>
+
+<div id="levelContainer"
+class="level-grid">
+</div>
+
+</div>
+
+<!-- GAME -->
+
+<div id="gameScreen" class="screen">
+
+<div class="top-bar">
+<button class="btn" onclick="backToLevels()">
+⬅ Level
+</button>
+
+<div id="levelName"></div>
 </div>
 
 <div class="progress-wrap">
-<div class="progress" id="progress"></div>
+<div id="progressBar" class="progress-bar"></div>
 </div>
 
-<div id="level" class="level"></div>
+<div id="questionEmoji" class="emoji"></div>
 
-<div id="emoji" class="emoji"></div>
+<div id="questionText" class="question"></div>
 
-<div id="question" class="question"></div>
+<div id="optionsArea" class="options"></div>
 
-<div id="options" class="options"></div>
+<div id="typingArea" class="hidden">
 
-<div id="typingSection" class="hidden">
-<input id="answerInput" class="answer" type="number">
-<button class="btn" onclick="checkTyping()">Jawab</button>
+<input
+type="text"
+id="answerInput"
+class="answer-input">
+
+<button
+class="btn"
+style="width:100%;margin-top:10px;"
+onclick="submitTyping()">
+Jawab
+</button>
+
 </div>
 
-<div id="feedback" class="feedback"></div>
+<div id="feedback"
+class="feedback">
+</div>
 
-<button id="nextBtn" class="btn hidden" onclick="nextQuestion()">
+<button
+id="nextBtn"
+class="btn hidden"
+style="width:100%;margin-top:15px;"
+onclick="nextQuestion()">
 Lanjut ➜
 </button>
 
 </div>
 
+<!-- SELESAI LEVEL -->
+
+<div id="finishScreen"
+class="screen">
+
+<div class="card">
+
+<div class="medal">
+🏅
+</div>
+
+<div class="section-title">
+Level Selesai
+</div>
+
+<h2 style="text-align:center;margin-bottom:15px;">
+⭐ <span id="earnedStars"></span> Bintang
+</h2>
+
+<button
+class="btn"
+style="width:100%;"
+onclick="showMenu()">
+Kembali ke Menu
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
-const TOTAL_QUESTIONS = 300;
+/* BAGIAN 2 AKAN DITEMPEL DI SINI */
 
-let score=0;
-let stars=0;
-let current=0;
-let currentAnswer=null;
-let typingMode=false;
+// ======================
+// DATA GAME
+// ======================
 
-const benda=[
+const LEVELS_PER_CATEGORY = 5;
+
+const categoryNames = {
+benda:"🍎 Mengenal Benda",
+hitung:"🔢 Berhitung",
+warna:"🎨 Warna & Bentuk",
+profesi:"👨‍🏫 Profesi",
+pola:"🔄 Pola & Urutan",
+campuran:"🎯 Kuis Campuran"
+};
+
+const bendaBuah = [
 ["🍎","Apel"],
 ["🍌","Pisang"],
 ["🍇","Anggur"],
 ["🍓","Stroberi"],
-["🥕","Wortel"],
+["🥭","Mangga"],
+["🍉","Semangka"],
+["🍍","Nanas"],
+["🍐","Pir"]
+];
+
+const bendaHewan = [
 ["🐱","Kucing"],
 ["🐶","Anjing"],
 ["🐰","Kelinci"],
 ["🦁","Singa"],
 ["🐵","Monyet"],
-["🚗","Mobil"],
-["✈️","Pesawat"],
-["🚲","Sepeda"],
-["🚂","Kereta"],
-["🚢","Kapal"]
+["🐼","Panda"],
+["🐸","Katak"],
+["🐧","Pinguin"]
 ];
 
-const warna=[
+const kendaraan = [
+["🚗","Mobil"],
+["🚲","Sepeda"],
+["✈️","Pesawat"],
+["🚂","Kereta"],
+["🚢","Kapal"],
+["🚑","Ambulans"],
+["🚜","Traktor"],
+["🚌","Bus"]
+];
+
+const sekolah = [
+["✏️","Pensil"],
+["📚","Buku"],
+["🎒","Tas"],
+["🖍️","Krayon"],
+["📏","Penggaris"],
+["📝","Buku Tulis"]
+];
+
+const rumah = [
+["🪑","Kursi"],
+["🛏️","Tempat Tidur"],
+["🚪","Pintu"],
+["🛋️","Sofa"],
+["🍽️","Piring"],
+["🚿","Shower"]
+];
+
+const profesiData = [
+["👨‍⚕️","Dokter"],
+["👩‍🏫","Guru"],
+["👮","Polisi"],
+["👨‍🚒","Pemadam"],
+["👨‍🍳","Koki"],
+["👷","Tukang"],
+["🧑‍🌾","Petani"],
+["👩‍⚖️","Hakim"]
+];
+
+const warnaData = [
 ["🔴","Merah"],
 ["🟡","Kuning"],
 ["🟢","Hijau"],
 ["🔵","Biru"]
 ];
 
-const bentuk=[
+const bentukData = [
 ["⚪","Lingkaran"],
 ["⬛","Persegi"],
 ["🔺","Segitiga"],
 ["💎","Belah Ketupat"]
 ];
 
-function rand(arr){
-return arr[Math.floor(Math.random()*arr.length)];
+// ======================
+// STATE
+// ======================
+
+let progressData =
+JSON.parse(
+localStorage.getItem("tkb-progress")
+) || {
+
+stars:0,
+score:0,
+
+completed:{},
+
+unlocked:{
+benda:[true,false,false,false,false],
+hitung:[true,false,false,false,false],
+warna:[true,false,false,false,false],
+profesi:[true,false,false,false,false],
+pola:[true,false,false,false,false],
+campuran:[true,false,false,false,false]
 }
 
-function shuffle(a){
+};
+
+let currentCategory="";
+let currentLevel=0;
+
+let currentQuestions=[];
+let currentQuestionIndex=0;
+
+let currentQuestion=null;
+
+let levelScore=0;
+let levelStars=0;
+
+// ======================
+// UTIL
+// ======================
+
+function saveProgress(){
+
+localStorage.setItem(
+"tkb-progress",
+JSON.stringify(progressData)
+);
+
+updateHeaderStats();
+
+}
+
+function updateHeaderStats(){
+
+document.getElementById("starCount").textContent =
+progressData.stars || 0;
+
+document.getElementById("scoreCount").textContent =
+progressData.score || 0;
+
+document.getElementById("completedCount").textContent =
+Object.keys(progressData.completed).length;
+
+}
+
+function rand(arr){
+
+return arr[
+Math.floor(Math.random()*arr.length)
+];
+
+}
+
+function shuffle(arr){
+
+let a=[...arr];
+
 for(let i=a.length-1;i>0;i--){
+
 let j=Math.floor(Math.random()*(i+1));
+
 [a[i],a[j]]=[a[j],a[i]];
 }
+
 return a;
 }
 
+function switchScreen(id){
+
+document
+.querySelectorAll(".screen")
+.forEach(el=>el.classList.remove("active"));
+
+document
+.getElementById(id)
+.classList.add("active");
+
+}
+
+updateHeaderStats();
+
+// ======================
+// MENU
+// ======================
+
+function showMenu(){
+
+switchScreen("menuScreen");
+
+}
+
+function openCategory(cat){
+
+currentCategory=cat;
+
+document.getElementById(
+"currentCategoryTitle"
+).innerHTML=
+categoryNames[cat];
+
+buildLevels(cat);
+
+switchScreen("levelScreen");
+
+}
+
+// ======================
+// LEVEL
+// ======================
+
+function buildLevels(cat){
+
+let html="";
+
+for(let i=0;i<5;i++){
+
+let unlocked =
+progressData.unlocked[cat][i];
+
+html += `
+
+<button
+class="level-btn ${unlocked ? '' : 'level-lock'}"
+${unlocked ?
+`onclick="startLevel('${cat}',${i+1})"` :
+'disabled'
+}
+>
+
+${unlocked ? '✅' : '🔒'}
+Level ${i+1}
+
+</button>
+
+`;
+
+}
+
+document.getElementById(
+"levelContainer"
+).innerHTML = html;
+
+}
+  
+// ======================
+// GENERATOR SOAL
+// ======================
+
+function makeObjectQuestions(source,total){
+
 let questions=[];
 
-function generateQuestions(){
+for(let i=0;i<total;i++){
 
-for(let i=0;i<50;i++){
+let item=rand(source);
 
-let item=rand(benda);
+let wrong=[];
+
+while(wrong.length<3){
+
+let w=rand(source)[1];
+
+if(
+w!==item[1] &&
+!wrong.includes(w)
+){
+wrong.push(w);
+}
+
+}
 
 questions.push({
-level:"Mengenal Benda",
+
+type:"choice",
+
 emoji:item[0],
-question:"Apa nama benda/hewan ini?",
+
+question:"Apa nama gambar ini?",
+
 answer:item[1],
+
 options:shuffle([
 item[1],
-rand(benda)[1],
-rand(benda)[1],
-rand(benda)[1]
+...wrong
 ])
+
 });
+
 }
 
-for(let i=0;i<50;i++){
+return questions;
 
-let a=Math.floor(Math.random()*10)+1;
-let b=Math.floor(Math.random()*10)+1;
-
-let answer=a+b;
-
-questions.push({
-level:"Berhitung",
-emoji:"🍎".repeat(a),
-question:`${a} + ${b} = ?`,
-answer:String(answer),
-typing:true
-});
 }
 
-for(let i=0;i<50;i++){
+function makeColorQuestions(total){
 
-let item=Math.random()>0.5?rand(warna):rand(bentuk);
+let questions=[];
+
+for(let i=0;i<total;i++){
+
+let item=Math.random()>.5
+? rand(warnaData)
+: rand(bentukData);
 
 questions.push({
-level:"Warna & Bentuk",
+
+type:"choice",
+
 emoji:item[0],
+
 question:"Pilih jawaban yang benar",
+
 answer:item[1],
+
 options:shuffle([
 item[1],
 "Mobil",
 "Kucing",
-"Pisang"
+"Pensil"
 ])
+
 });
+
 }
 
-for(let i=0;i<50;i++){
+return questions;
 
-let start=Math.floor(Math.random()*10)+1;
-
-questions.push({
-level:"Pola Angka",
-emoji:"🔢",
-question:`${start}, ${start+1}, ${start+2}, ?`,
-answer:String(start+3),
-typing:true
-});
 }
 
-for(let i=0;i<50;i++){
+function makeCountingQuestions(max,total){
 
-let item=rand(benda);
+let questions=[];
 
-questions.push({
-level:"Cocokkan Pasangan",
-emoji:item[0],
-question:"Pilih pasangan yang sesuai",
-answer:item[1],
-options:shuffle([
-item[1],
-rand(benda)[1],
-rand(benda)[1],
-rand(benda)[1]
-])
-});
-}
+for(let i=0;i<total;i++){
 
-for(let i=0;i<50;i++){
-
-let a=Math.floor(Math.random()*20)+1;
-let b=Math.floor(Math.random()*10)+1;
-
-let answer=a+b;
+let a=Math.floor(Math.random()*max)+1;
+let b=Math.floor(Math.random()*max)+1;
 
 questions.push({
-level:"Kuis Campuran",
-emoji:"🎯",
+
+type:"typing",
+
+emoji:"🍎".repeat(
+Math.min(a,8)
+),
+
 question:`${a} + ${b} = ?`,
-answer:String(answer),
-typing:true
+
+answer:String(a+b)
+
 });
-}
-
-shuffle(questions);
 
 }
 
-generateQuestions();
+return questions;
 
-function loadQuestion(){
+}
 
-let q=questions[current];
+function makePatternQuestions(total){
 
-document.getElementById("current").textContent=current+1;
-document.getElementById("score").textContent=score;
-document.getElementById("stars").textContent=stars;
+let questions=[];
 
-document.getElementById("level").textContent=q.level;
-document.getElementById("question").textContent=q.question;
-document.getElementById("emoji").textContent=q.emoji;
+for(let i=0;i<total;i++){
 
-document.getElementById("feedback").innerHTML="";
-document.getElementById("nextBtn").classList.add("hidden");
+let start=
+Math.floor(Math.random()*10)+1;
 
-let progress=((current)/TOTAL_QUESTIONS)*100;
-document.getElementById("progress").style.width=progress+"%";
+questions.push({
 
-currentAnswer=q.answer;
+type:"typing",
 
-if(q.typing){
+emoji:"🔢",
 
-typingMode=true;
+question:
+`${start}, ${start+1}, ${start+2}, ?`,
 
-document.getElementById("typingSection")
-.classList.remove("hidden");
+answer:String(start+3)
 
-document.getElementById("options").innerHTML="";
+});
 
-document.getElementById("answerInput").value="";
+}
 
-}else{
+return questions;
 
-typingMode=false;
+}
 
-document.getElementById("typingSection")
+// ======================
+// AMBIL SOAL PER LEVEL
+// ======================
+
+function getQuestions(category,level){
+
+switch(category){
+
+case "benda":
+
+if(level===1)
+return makeObjectQuestions(bendaBuah,10);
+
+if(level===2)
+return makeObjectQuestions(bendaHewan,10);
+
+if(level===3)
+return makeObjectQuestions(kendaraan,10);
+
+if(level===4)
+return makeObjectQuestions(sekolah,15);
+
+if(level===5)
+return makeObjectQuestions(rumah,15);
+
+break;
+
+case "hitung":
+
+if(level===1)
+return makeCountingQuestions(5,10);
+
+if(level===2)
+return makeCountingQuestions(10,10);
+
+if(level===3)
+return makeCountingQuestions(10,10);
+
+if(level===4)
+return makeCountingQuestions(15,15);
+
+if(level===5)
+return makeCountingQuestions(20,15);
+
+break;
+
+case "warna":
+
+return makeColorQuestions(
+level<=3 ? 10 : 15
+);
+
+case "profesi":
+
+return makeObjectQuestions(
+profesiData,
+level<=3 ? 10 : 15
+);
+
+case "pola":
+
+return makePatternQuestions(
+level<=3 ? 10 : 15
+);
+
+case "campuran":
+
+let mix=[];
+
+mix.push(
+...makeObjectQuestions(
+bendaBuah,4
+)
+);
+
+mix.push(
+...makeCountingQuestions(
+10,4
+)
+);
+
+mix.push(
+...makePatternQuestions(
+4
+)
+);
+
+mix.push(
+...makeColorQuestions(
+4
+)
+);
+
+return shuffle(mix);
+
+}
+
+return [];
+
+}
+
+// ======================
+// START LEVEL
+// ======================
+
+function startLevel(cat,level){
+
+currentCategory=cat;
+currentLevel=level;
+
+currentQuestions=
+getQuestions(cat,level);
+
+currentQuestionIndex=0;
+
+levelScore=0;
+levelStars=0;
+
+document.getElementById(
+"levelName"
+).textContent=
+`Level ${level}`;
+
+switchScreen("gameScreen");
+
+showQuestion();
+
+}
+
+// ======================
+// TAMPILKAN SOAL
+// ======================
+
+function showQuestion(){
+
+currentQuestion =
+currentQuestions[
+currentQuestionIndex
+];
+
+document.getElementById(
+"questionEmoji"
+).innerHTML=
+currentQuestion.emoji;
+
+document.getElementById(
+"questionText"
+).innerHTML=
+currentQuestion.question;
+
+document.getElementById(
+"feedback"
+).innerHTML="";
+
+document.getElementById(
+"nextBtn"
+).classList.add("hidden");
+
+let progress=
+(currentQuestionIndex/
+currentQuestions.length)*100;
+
+document.getElementById(
+"progressBar"
+).style.width=
+progress+"%";
+
+if(
+currentQuestion.type==="choice"
+){
+
+document
+.getElementById(
+"typingArea"
+)
 .classList.add("hidden");
 
 let html="";
 
-q.options.forEach(opt=>{
+currentQuestion.options
+.forEach(opt=>{
 
 html+=`
-<button class="option"
+<button
+class="option-btn"
 onclick="checkAnswer('${opt}')">
 ${opt}
-</button>`;
-});
-
-document.getElementById("options").innerHTML=html;
-}
-}
-
-function checkAnswer(ans){
-
-let fb=document.getElementById("feedback");
-
-if(ans===currentAnswer){
-
-score+=10;
-stars++;
-
-fb.className="feedback correct";
-fb.innerHTML="🎉 Hebat!";
-
-}else{
-
-fb.className="feedback wrong";
-fb.innerHTML="😊 Coba Lagi";
-}
-
-document.getElementById("nextBtn")
-.classList.remove("hidden");
-}
-
-function checkTyping(){
-
-let ans=document.getElementById("answerInput")
-.value.trim();
-
-checkAnswer(ans);
-}
-
-function nextQuestion(){
-
-current++;
-
-if(current>=TOTAL_QUESTIONS){
-
-document.querySelector(".container").innerHTML=
-`
-<h1>🎉 Selamat 🎉</h1>
-
-<h2 style="text-align:center">
-Skor Akhir: ${score}
-</h2>
-
-<h2 style="text-align:center">
-⭐ Bintang: ${stars}
-</h2>
-
-<button class="btn"
-onclick="location.reload()">
-Main Lagi
 </button>
 `;
 
+});
+
+document.getElementById(
+"optionsArea"
+).innerHTML=html;
+
+}else{
+
+document
+.getElementById(
+"typingArea"
+)
+.classList.remove("hidden");
+
+document
+.getElementById(
+"optionsArea"
+).innerHTML="";
+
+document
+.getElementById(
+"answerInput"
+).value="";
+
+}
+
+}
+
+// ======================
+// JAWABAN
+// ======================
+
+function submitTyping(){
+
+let answer=
+document
+.getElementById(
+"answerInput"
+)
+.value
+.trim();
+
+checkAnswer(answer);
+
+}
+
+function checkAnswer(answer){
+
+let fb=
+document.getElementById(
+"feedback"
+);
+
+if(
+answer.toLowerCase() ===
+currentQuestion.answer
+.toLowerCase()
+){
+
+levelScore+=10;
+levelStars++;
+
+fb.className=
+"feedback success";
+
+fb.innerHTML=
+"🎉 Hebat!";
+
+}else{
+
+fb.className=
+"feedback fail";
+
+fb.innerHTML=
+`😊 Jawaban benar: ${currentQuestion.answer}`;
+
+}
+
+document
+.getElementById(
+"nextBtn"
+)
+.classList.remove("hidden");
+
+}
+
+// ======================
+// LANJUT
+// ======================
+
+function nextQuestion(){
+
+currentQuestionIndex++;
+
+if(
+currentQuestionIndex >=
+currentQuestions.length
+){
+
+finishLevel();
 return;
+
 }
 
-loadQuestion();
+showQuestion();
+
 }
 
-loadQuestion();
+// ======================
+// SELESAI LEVEL
+// ======================
+
+function finishLevel(){
+
+let stars=1;
+
+let percent=
+(levelScore /
+(currentQuestions.length*10))
+*100;
+
+if(percent>=90){
+
+stars=3;
+
+}else if(percent>=70){
+
+stars=2;
+
+}
+
+progressData.stars += stars;
+progressData.score += levelScore;
+
+let key=
+currentCategory+
+"-"+
+currentLevel;
+
+progressData.completed[
+key
+]=true;
+
+if(currentLevel<5){
+
+progressData.unlocked[
+currentCategory
+][currentLevel]=true;
+
+}
+
+saveProgress();
+
+document.getElementById(
+"earnedStars"
+).innerHTML=
+stars;
+
+switchScreen(
+"finishScreen"
+);
+
+}
+
+// ======================
+// NAVIGASI
+// ======================
+
+function backToLevels(){
+
+buildLevels(
+currentCategory
+)
 
 </script>
 
