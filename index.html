@@ -1075,10 +1075,9 @@ document.getElementById(
 );
 
 if(
-answer.toLowerCase() ===
-currentQuestion.answer
-.toLowerCase()
-){
+String(answer).toLowerCase().trim() ===
+String(currentQuestion.answer).toLowerCase().trim()
+)
 
 levelScore+=10;
 levelStars++;
@@ -1191,10 +1190,37 @@ switchScreen(
 
 function backToLevels(){
 
-buildLevels(
-currentCategory
-)
+    buildLevels(currentCategory);
 
+    switchScreen("levelScreen");
+
+}
+
+function resetProgress(){
+
+    if(confirm("Reset semua progres?")){
+
+        localStorage.removeItem("tkb-progress");
+
+        location.reload();
+
+    }
+
+}
+
+const resetBtn = document.createElement("button");
+
+resetBtn.className = "btn";
+
+resetBtn.innerHTML = "🗑 Reset Progres";
+
+resetBtn.onclick = resetProgress;
+
+document.querySelector(".header")
+.appendChild(resetBtn);
+
+updateHeaderStats();
+`
 </script>
 
 </body>
