@@ -1079,40 +1079,36 @@ checkAnswer(answer);
 
 }
 
+function submitTyping(){
+
+    let answer =
+    document
+    .getElementById("answerInput")
+    .value
+    .trim();
+
+    checkAnswer(answer);
+
+}
+
 function checkAnswer(answer){
 
     let fb =
     document.getElementById("feedback");
 
     if(
-        String(answer).toLowerCase().trim() ===
+        String(answer).toLowerCase().trim()
+        ===
         String(currentQuestion.answer).toLowerCase().trim()
     ){
 
         levelScore += 10;
         levelStars++;
 
-        fb.className =
-        "feedback success";
-
-        fb.innerHTML =
-        "🎉 Hebat!";
+        fb.className = "feedback success";
+        fb.innerHTML = "🎉 Hebat!";
 
     }else{
-
-        fb.className =
-        "feedback fail";
-
-        fb.innerHTML =
-        `😊 Jawaban benar: ${currentQuestion.answer}`;
-
-    }
-
-    document
-    .getElementById("nextBtn")
-    .classList.remove("hidden");
-
-}
 
         fb.className = "feedback fail";
 
@@ -1124,22 +1120,6 @@ function checkAnswer(answer){
     document
     .getElementById("nextBtn")
     .classList.remove("hidden");
-
-}
-
-fb.className=
-"feedback fail";
-
-fb.innerHTML=
-`😊 Jawaban benar: ${currentQuestion.answer}`;
-
-}
-
-document
-.getElementById(
-"nextBtn"
-)
-.classList.remove("hidden");
 
 }
 
@@ -1256,6 +1236,7 @@ resetBtn.onclick = resetProgress;
 document.querySelector(".header")
 .appendChild(resetBtn);
 
+updateHeaderStats();
 
 </script>
 
