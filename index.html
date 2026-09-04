@@ -530,24 +530,36 @@ const bentukData = [
 // STATE
 // ======================
 
-let progressData =
-JSON.parse(
-localStorage.getItem("tkb-progress")
-) || {
+let progressData;
 
-stars:0,
-score:0,
+try{
 
-completed:{},
+    progressData =
+    JSON.parse(
+        localStorage.getItem("tkb-progress")
+    );
 
-unlocked:{
-benda:[true,false,false,false,false],
-hitung:[true,false,false,false,false],
-warna:[true,false,false,false,false],
-profesi:[true,false,false,false,false],
-pola:[true,false,false,false,false],
-campuran:[true,false,false,false,false]
+}catch(e){
+
+    progressData = null;
+
 }
+
+progressData = progressData || {
+
+    stars:0,
+    score:0,
+
+    completed:{},
+
+    unlocked:{
+        benda:[true,false,false,false,false],
+        hitung:[true,false,false,false,false],
+        warna:[true,false,false,false,false],
+        profesi:[true,false,false,false,false],
+        pola:[true,false,false,false,false],
+        campuran:[true,false,false,false,false]
+    }
 
 };
 
@@ -1069,26 +1081,35 @@ checkAnswer(answer);
 
 function checkAnswer(answer){
 
-let fb=
-document.getElementById(
-"feedback"
-);
+    let fb =
+    document.getElementById("feedback");
 
-if(
-String(answer).toLowerCase().trim() ===
-String(currentQuestion.answer).toLowerCase().trim()
-)
+    if(
+        String(answer).toLowerCase().trim() ===
+        String(currentQuestion.answer).toLowerCase().trim()
+    ){
 
-levelScore+=10;
-levelStars++;
+        levelScore += 10;
+        levelStars++;
 
-fb.className=
-"feedback success";
+        fb.className = "feedback success";
 
-fb.innerHTML=
-"🎉 Hebat!";
+        fb.innerHTML = "🎉 Hebat!";
 
-}else{
+    }else{
+
+        fb.className = "feedback fail";
+
+        fb.innerHTML =
+        `😊 Jawaban benar: ${currentQuestion.answer}`;
+
+    }
+
+    document
+    .getElementById("nextBtn")
+    .classList.remove("hidden");
+
+}
 
 fb.className=
 "feedback fail";
@@ -1220,7 +1241,7 @@ document.querySelector(".header")
 .appendChild(resetBtn);
 
 updateHeaderStats();
-`
+
 </script>
 
 </body>
