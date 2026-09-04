@@ -1092,11 +1092,27 @@ function checkAnswer(answer){
         levelScore += 10;
         levelStars++;
 
-        fb.className = "feedback success";
+        fb.className =
+        "feedback success";
 
-        fb.innerHTML = "🎉 Hebat!";
+        fb.innerHTML =
+        "🎉 Hebat!";
 
     }else{
+
+        fb.className =
+        "feedback fail";
+
+        fb.innerHTML =
+        `😊 Jawaban benar: ${currentQuestion.answer}`;
+
+    }
+
+    document
+    .getElementById("nextBtn")
+    .classList.remove("hidden");
+
+}
 
         fb.className = "feedback fail";
 
@@ -1240,7 +1256,6 @@ resetBtn.onclick = resetProgress;
 document.querySelector(".header")
 .appendChild(resetBtn);
 
-updateHeaderStats();
 
 </script>
 
